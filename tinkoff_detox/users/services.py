@@ -156,3 +156,7 @@ class UserService:
         if user is None:
             raise AuthenticationException("token decode error")
         return user
+
+    async def remove_user(self, user: User) -> None:
+        await self.repo.remove(user)
+        

@@ -1,3 +1,4 @@
+from typing import Literal
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, status
@@ -19,6 +20,12 @@ async def get_me(user: Me):
 async def update_user(data: UpdateUser, user: Me, service: Users):
     await service.update_user(user=user, **data.model_dump(exclude_none=True))
     return user
+
+
+@users.delete("/me", response_model=Literal["done"])
+async def remove_user(user: Me, service: Users):
+    await service.remove_user(user=user)
+    return "done"
 
 
 @users.get("/{user_id}", response_model=UserPublic)
