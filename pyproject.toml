@@ -10,7 +10,13 @@ python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.110.1"}
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.29"}
 alembic = "^1.13.1"
+aiosqlite = "^0.20.0"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.7"
 
 [build-system]
 requires = ["poetry-core"]
