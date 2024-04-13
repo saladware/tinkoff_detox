@@ -12,6 +12,7 @@ from starlette.types import ASGIApp
 
 from .users.routes import users
 from .tokens.routes import tokens
+from .model.routes import model
 
 
 async def item_exception_handler(request: Request, exception: Exception) -> Response:
@@ -47,6 +48,7 @@ def get_app() -> ASGIApp:
 
     app.include_router(users, prefix="/users", tags=["users"])
     app.include_router(tokens, prefix="/tokens", tags=["tokens"])
+    app.include_router(model, prefix="/model", tags=["model"])
     app.add_exception_handler(ItemException, item_exception_handler)
 
     app.add_middleware(
