@@ -15,5 +15,6 @@ class TokenSchema(BaseModel):
 
     id: UUID
     name: str
+    token: str
     user_id: UUID
     created_at: datetime
