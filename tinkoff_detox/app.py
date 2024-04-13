@@ -5,6 +5,7 @@ from .exceptions import (
     ItemNotFoundException,
 )
 from fastapi import FastAPI, HTTPException, Request, Response, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import ORJSONResponse
 from starlette.types import ASGIApp
@@ -47,5 +48,17 @@ def get_app() -> ASGIApp:
     app.include_router(users, prefix="/users", tags=["users"])
     app.include_router(tokens, prefix="/tokens", tags=["tokens"])
     app.add_exception_handler(ItemException, item_exception_handler)
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost",
+            "http://localhost:8000",
+            "http://localhost:3000",
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     return app
