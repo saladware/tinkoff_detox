@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 from uuid import UUID
 from datetime import datetime
 
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
@@ -14,7 +15,7 @@ class Token(Base):
     __tablename__ = "token"
 
     id: Mapped[UUID] = mapped_column(primary_key=True)
-    user_id: Mapped[UUID]
+    user_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship(back_populates="tokens")
     token: Mapped[str] = mapped_column(unique=True)
     name: Mapped[str]
