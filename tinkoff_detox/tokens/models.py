@@ -15,7 +15,7 @@ class Token(Base):
 
     id: Mapped[UUID] = mapped_column(primary_key=True)
     user_id: Mapped[UUID]
-    user: Mapped[User] = relationship(back_populates="tokens")
+    user: Mapped["User"] = relationship(back_populates="tokens")
     token: Mapped[str] = mapped_column(unique=True)
     name: Mapped[str]
     created_at: Mapped[datetime]
