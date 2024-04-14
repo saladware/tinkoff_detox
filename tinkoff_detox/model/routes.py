@@ -20,10 +20,9 @@ async def journal_comments_filter(path: str, token: TokenRequired, type: Literal
 
 @model.post("/audioFilter")
 async def audio_filter(file: UploadFile, token: TokenRequired, type: Literal["blur", "rewrite"]):
-    ...
+    return file.file
 
 
 @model.post("/videoFilter")
 async def video_filter(file: UploadFile, token: TokenRequired, type: Literal["blur", "rewrite"]):
-
-    ...
+    return file.file
