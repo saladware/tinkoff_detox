@@ -4,13 +4,21 @@ from ..tokens.dependencies import TokenRequired
 
 from fastapi import APIRouter, UploadFile
 
+from .ml import detoxify
+
 
 model = APIRouter()
 
 
 @model.post("/textFilter")
-async def text_filter(data: str, token: TokenRequired):
-    return data
+def text_filter(promt: str, token: TokenRequired,
+    max_tokens: int = 50,
+    temperature: float = 0.7,
+    top_k: int = 50,
+    top_p: float = 0.95,
+    penalty: float = 1.0,
+    n: int = 1, ):
+    return detoxify(promt, max_tokens, temperature, top_k, top_p, penalty, n)
 
 
 @model.post("/journalCommentsFilter")
