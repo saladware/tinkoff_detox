@@ -30,6 +30,9 @@ def detoxify(
     penalty: float = 1.0,
     n: int = 1,
 ):
+    # Установка do_sample в True, если temperature не равно 1, иначе в False
+    do_sample = temperature == 1.0
+
     # Токенизация текста и перенос на GPU
     inputs = tokenizer.encode_plus(
         text,
@@ -41,7 +44,7 @@ def detoxify(
     )
     inputs = {k: v.to(device) for k, v in inputs.items()}
 
-    # Генерация ответов моделью
+    # Генерация ответов моделью с учетом значения do_sample
     outputs = model.generate(
         input_ids=inputs["input_ids"],
         attention_mask=inputs["attention_mask"],
@@ -51,7 +54,7 @@ def detoxify(
         top_p=top_p,
         repetition_penalty=penalty,
         num_return_sequences=n,
-        do_sample=True,
+        do_sample=do_sample,  # Использование автоматически установленного значения do_sample
     )
 
     detoxified_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
