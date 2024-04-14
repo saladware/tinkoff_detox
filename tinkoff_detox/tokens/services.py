@@ -15,6 +15,7 @@ class TokensService:
 
     async def create_token(self, name: str, by: User) -> Token:
         token = Token(
+            user=by,
             id=uuid4(),
             user_id=by.id,
             token=token_urlsafe(32),
