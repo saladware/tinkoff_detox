@@ -2,7 +2,7 @@ from typing import Literal
 
 from ..tokens.dependencies import TokenRequired
 
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile
 
 
 model = APIRouter()
@@ -19,11 +19,11 @@ async def journal_comments_filter(path: str, token: TokenRequired, type: Literal
 
 
 @model.post("/audioFilter")
-async def audio_filter(file, token: TokenRequired, type: Literal["blur", "rewrite"]):
+async def audio_filter(file: UploadFile, token: TokenRequired, type: Literal["blur", "rewrite"]):
     ...
 
 
 @model.post("/videoFilter")
-async def video_filter(file, token: TokenRequired, type: Literal["blur", "rewrite"]):
+async def video_filter(file: UploadFile, token: TokenRequired, type: Literal["blur", "rewrite"]):
 
     ...
