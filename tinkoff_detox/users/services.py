@@ -96,6 +96,7 @@ class UserService:
             firstname=firstname,
             lastname=lastname,
             created_at=datetime.now(timezone.utc),
+            tokens=[],
         )
         await self.repo.save(user)
 
@@ -159,4 +160,3 @@ class UserService:
 
     async def remove_user(self, user: User) -> None:
         await self.repo.remove(user)
-        

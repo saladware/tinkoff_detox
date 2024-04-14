@@ -42,3 +42,9 @@ class TokensService:
 
     async def get_all_users_tokens(self, user: User) -> list[Token]:
         return await self.repo.get_all(user_id=user.id)
+    
+    async def remove_token(self, token: Token, by: User) -> None:
+        if token.user_id != by.id:
+            raise TokenNotFoundException(id=str(token.id))
+        await self.repo.remove(token)
+
